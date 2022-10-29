@@ -1,7 +1,9 @@
-import midi, numpy
+import midi
+import numpy
 
 lowerBound = 24
 upperBound = 102
+
 
 def midiToNoteStateMatrix(midifile):
 
@@ -15,13 +17,13 @@ def midiToNoteStateMatrix(midifile):
     span = upperBound-lowerBound
     time = 0
 
-    state = [[0,0] for x in range(span)]
+    state = [[0, 0] for x in range(span)]
     statematrix.append(state)
     while True:
         if time % (pattern.resolution / 4) == (pattern.resolution / 8):
             # Crossed a note boundary. Create a new state, defaulting to holding notes
             oldstate = state
-            state = [[oldstate[x][0],0] for x in range(span)]
+            state = [[oldstate[x][0], 0] for x in range(span)]
             statematrix.append(state)
 
         for i in range(len(timeleft)):
@@ -61,6 +63,7 @@ def midiToNoteStateMatrix(midifile):
 
     return statematrix
 
+
 def noteStateMatrixToMidi(statematrix, name="example"):
     statematrix = numpy.asarray(statematrix)
     pattern = midi.Pattern()
@@ -71,7 +74,7 @@ def noteStateMatrixToMidi(statematrix, name="example"):
     tickscale = 55
     
     lastcmdtime = 0
-    prevstate = [[0,0] for x in range(span)]
+    prevstate = [[0, 0] for x in range(span)]
     for time, state in enumerate(statematrix + [prevstate[:]]):  
         offNotes = []
         onNotes = []
