@@ -1,6 +1,5 @@
-.output/
-.venv/
+output/
+venv/
+TESTING/
 .idea/
 __pycache__/
-.ipynb_checkpoints/
-*.ipynb
